@@ -316,9 +316,13 @@ class Zero123(BaseLift3DSystem):
             name="validation_epoch_end",
             step=self.true_global_step,
         )
-        shutil.rmtree(
-            os.path.join(self.get_save_dir(), f"it{self.true_global_step}-val")
-        )
+        val_dir = os.path.join(self.get_save_dir(), f"it{self.true_global_step}-val")
+        if os.path.exists(val_dir):
+            try:
+                shutil.rmtree(val_dir)
+            except FileNotFoundError:
+                # Directory was already removed by another process
+                pass
 
     def test_step(self, batch, batch_idx):
         out = self(batch)
@@ -385,6 +389,10 @@ class Zero123(BaseLift3DSystem):
             name="test",
             step=self.true_global_step,
         )
-        shutil.rmtree(
-            os.path.join(self.get_save_dir(), f"it{self.true_global_step}-test")
-        )
+        test_dir = os.path.join(self.get_save_dir(), f"it{self.true_global_step}-test")
+        if os.path.exists(test_dir):
+            try:
+                shutil.rmtree(test_dir)
+            except FileNotFoundError:
+                # Directory was already removed by another process
+                pass

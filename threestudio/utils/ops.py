@@ -5,7 +5,7 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from igl import fast_winding_number_for_meshes, point_mesh_squared_distance, read_obj
+from igl import fast_winding_number as fast_winding_number_for_meshes, point_mesh_squared_distance, readOBJ as read_obj
 from torch.autograd import Function
 from torch.cuda.amp import custom_bwd, custom_fwd
 
